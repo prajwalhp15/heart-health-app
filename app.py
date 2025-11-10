@@ -30,7 +30,7 @@ except:
 # Streamlit Page Setup
 # ===============================
 st.set_page_config(page_title="Heart Health Predictor", layout="centered")
-st.title("🫀 Heart Health Archetype Discovery")
+st.title("Heart Health Archetype Discovery")
 st.markdown("Enter your clinical details below to predict your heart health cluster.")
 
 # ===============================
@@ -42,7 +42,7 @@ with st.form("patient_form"):
     chol = st.number_input("Serum Cholesterol (mg/dl)", 100, 400, 200)
     thalach = st.number_input("Maximum Heart Rate Achieved (bpm)", 60, 220, 150)
     oldpeak = st.number_input("ST Depression (Oldpeak)", 0.0, 6.5, 1.0, step=0.1)
-    submit = st.form_submit_button("🔍 Predict Cluster")
+    submit = st.form_submit_button("Predict Cluster")
 
 # ===============================
 # Cluster Meaning Detection
@@ -62,9 +62,9 @@ atrisk_cluster = sorted_indices[1]
 critical_cluster = sorted_indices[2]
 
 cluster_map = {
-    healthy_cluster: ("💚 Healthy Group", "Balanced vitals and good heart rate.", "green"),
-    atrisk_cluster: ("⚠️ At-Risk Group", "Slightly elevated BP or cholesterol. Monitor regularly.", "orange"),
-    critical_cluster: ("❤️ Critical Group", "High BP and cholesterol. Requires medical attention.", "red"),
+    healthy_cluster: (" Healthy Group", "Balanced vitals and good heart rate.", "green"),
+    atrisk_cluster: (" At-Risk Group", "Slightly elevated BP or cholesterol. Monitor regularly.", "orange"),
+    critical_cluster: ("Critical Group", "High BP and cholesterol. Requires medical attention.", "red"),
 }
 
 # ===============================
@@ -79,7 +79,7 @@ if submit:
 
     # --- Display Output ---
     st.markdown("---")
-    st.subheader("🧠 Prediction Result:")
+    st.subheader(" Prediction Result:")
     st.markdown(f"### You belong to: **{label}**")
     st.markdown(f"**Interpretation:** {desc}")
 
@@ -105,7 +105,7 @@ if submit:
     st.pyplot(fig)
 
     # --- Optional Enhanced Cluster Visualization ---
-    st.markdown("### 🔍 Compare with all cluster centers")
+    st.markdown("###  Compare with all cluster centers")
     if st.checkbox("Show all clusters in PCA plot"):
         cluster_points = pca.transform(kmeans.cluster_centers_)
 
@@ -131,10 +131,10 @@ if submit:
     # ===============================
     # Cluster Summary Table
     # ===============================
-    st.markdown("### 📊 Cluster Averages (Clinical Summary)")
+    st.markdown("###  Cluster Averages (Clinical Summary)")
     feature_names = ['Age', 'Resting BP', 'Cholesterol', 'Max HR', 'Oldpeak']
     cluster_summary = pd.DataFrame(cluster_centers, columns=feature_names)
     cluster_summary['Risk Level'] = ['Healthy', 'At-Risk', 'Critical']
     st.dataframe(cluster_summary.style.highlight_max(color="lightcoral").highlight_min(color="lightgreen"))
 
-    st.success("✅ Prediction completed successfully!")
+    st.success("Prediction completed successfully!")
